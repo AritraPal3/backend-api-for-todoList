@@ -12,22 +12,27 @@ router.post("/delete/:id",deleteData);
 function showData(req,res,next)
 {
     console.dir(req.body)
-    res.send(getData());
+    res.send((getData()));
     console.log("Will Return All Data")
 }
 
-function saveData(req,res,next)
-{
-    console.log(req.body)
-    let details={
-        id:req.body.id,
-        taskName:req.body.taskName,
-        creationDate:req.body.creationDate,
-        completionDate:req.body.completionDate,
-        taskStatus:req.body.taskStatus,
+async function saveData(req, res, next) {
+    console.log(req.body);
+    let details = {
+        id: req.body.id,
+        taskName: req.body.taskName,
+        creationDate: req.body.creationDate,
+        completionDate: req.body.completionDate,
+        taskStatus: req.body.taskStatus,
+    };
+
+    try {
+        await Save(details);
+        res.send("New Task Has Been Saved");
+        console.log("Saved the new Data");
+    } catch (err) {
+        next(err); // Pass errors to Express error handler
     }
-    res.send(Save(details))
-    console.log("Will Save the new Data")
 }
 
 function editData(req,res,next)

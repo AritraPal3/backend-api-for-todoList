@@ -1,19 +1,19 @@
-const Task  = require("../models/schema")
+const {Task}  = require("../models/schema")
 
-function Save(details) {
-    let task = {
+async function Save(details) {
+    const task = new Task({
         id: details.id,
-        creationDate: details.completionDate,
+        creationDate: details.creationDate,
         taskName: details.taskName,
         taskStatus: details.taskStatus,
         completionDate: details.completionDate
-    }
+    });
+
     try {
-        task.save();
-        console.log("New Task Has Been Added")
-    }
-    catch (err) {
-        "Entry Could Not Be saved, check your database connection"
+        await task.save();
+        console.log("New Task Has Been Added");
+    } catch (err) {
+        console.error("Entry Could Not Be Saved, check your database connection", err);
     }
 }
 
@@ -42,7 +42,7 @@ async function Delete(id) {
 async function getData() {
     try {
         const data = await Task.find();
-        console.log(data)
+        return data;
     }
     catch (err) {
         console.log("Could not fetcth all records")
