@@ -6,9 +6,10 @@ const taskSchema = new mongoose.Schema({
     "taskName": String,
     "taskStatus": String,
     "completionDate": String,
+    "deadlineDate":Date,
 })
 
-const Task = new mongoose.model("task", taskSchema) 
+const Task = new mongoose.model("Task", taskSchema) 
 module.exports = {
     Task
 }

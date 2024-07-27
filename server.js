@@ -1,19 +1,22 @@
 const express = require("express")
-const bp=require("body-parser")
+const bp = require("body-parser")
 require('dotenv').config()
 const { ConnectDB } = require("./config/db.js")
 const app = express()
+var cors = require('cors');
 
-app.use(express.json()) 
+
+app.use(cors());
+app.use(express.json())
 app.use(bp.urlencoded({ extended: true }));
 
-const router =require("./src/routes/main.js")
+const router = require("./src/router/index_route.js")
 
 //db-connection
 ConnectDB();
 
 //setting routes
-app.use("/",router)
+app.use("/", router)
 
 //port setting
 app.listen(process.env.PORT, () => {
